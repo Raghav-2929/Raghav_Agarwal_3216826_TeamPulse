@@ -1,0 +1,93 @@
+[project]
+name = "teampulse"
+version = "1.0.0"
+description = "TeamPulse — internal wellness & team-engagement platform (FastAPI microservices)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["libs/*", "services/*"]
+
+[tool.uv.sources]
+teampulse-common = { workspace = true }
+teampulse-gateway = { workspace = true }
+teampulse-identity-service = { workspace = true }
+teampulse-habit-service = { workspace = true }
+teampulse-event-tracking-service = { workspace = true }
+teampulse-challenge-service = { workspace = true }
+teampulse-insight-service = { workspace = true }
+teampulse-notification-service = { workspace = true }
+teampulse-streak-processor = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "teampulse-common",
+    "teampulse-gateway",
+    "teampulse-identity-service",
+    "teampulse-habit-service",
+    "teampulse-event-tracking-service",
+    "teampulse-challenge-service",
+    "teampulse-insight-service",
+    "teampulse-notification-service",
+    "teampulse-streak-processor",
+    "pytest>=8.3",
+    "pytest-asyncio>=0.24",
+    "pytest-cov>=6.0",
+    "ruff>=0.8",
+    "mypy>=1.13",
+    "respx>=0.21",
+    "moto[dynamodb]>=5.0",
+]
+
+# ---------------------------------------------------------------- tooling
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+extend-exclude = ["**/migrations/versions/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "ASYNC", "RUF", "SIM", "PT", "N"]
+ignore = [
+    "S101",   # assert in tests
+    "B008",   # FastAPI Depends() in defaults is idiomatic
+    "S105",   # false positives on token_type="bearer" etc.
+    "RUF012",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S", "PT011", "N802"]
+"scripts/generate_postman.py" = ["E501"]  # long JS assertion strings in Postman test scripts
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "teampulse_common", "gateway", "identity_service", "habit_service", "event_tracking_service",
+    "challenge_service", "insight_service", "notification_service", "streak_processor",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = "-ra --strict-markers --import-mode=importlib"
+testpaths = ["libs/common/tests", "services"]
+markers = ["integration: tests that need external infrastructure"]
+filterwarnings = ["ignore::DeprecationWarning:botocore.*"]
+
+[tool.coverage.run]
+branch = true
+source = ["libs/common/src", "services"]
+omit = ["**/tests/**", "**/migrations/**"]
+
+[tool.coverage.report]
+skip_empty = true
+show_missing = true
+exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError", "\\.\\.\\."]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_unused_ignores = true
+plugins = ["pydantic.mypy"]

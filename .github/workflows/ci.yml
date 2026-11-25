@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    name: Backend · lint + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.13"
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run pytest --cov --cov-report=xml --cov-report=term --junitxml=pytest-results.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: |
+            coverage.xml
+            pytest-results.xml
+
+  frontend:
+    name: Frontend · components + web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            frontend/ui-components/package-lock.json
+            frontend/web/package-lock.json
+      - name: Component library
+        working-directory: frontend/ui-components
+        run: npm ci && npm run build && npm test
+      - name: Web app
+        working-directory: frontend/web
+        run: npm ci && npm run check && npm run build && npx vitest run
+
+  api-contract:
+    name: API · Postman collection against the running stack
+    runs-on: ubuntu-latest
+    needs: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.13"
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Start all services (zero-infra mode)
+        run: |
+          nohup uv run python scripts/run_local.py --reset > stack.log 2>&1 &
+          for i in $(seq 1 90); do
+            curl -sf http://localhost:8000/health/services && break
+            sleep 2
+          done
+      - name: Run Postman collection
+        run: npx -y newman@6.2.1 run postman/TeamPulse.postman_collection.json -e postman/TeamPulse.local.postman_environment.json
+      - if: failure()
+        run: tail -n 200 stack.log
+
+  images:
+    name: Docker images
+    runs-on: ubuntu-latest
+    needs: backend
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: gateway, file: services/gateway/Dockerfile, context: . }
+          - { name: identity-service, file: services/identity-service/Dockerfile, context: . }
+          - { name: habit-service, file: services/habit-service/Dockerfile, context: . }
+          - { name: event-tracking-service, file: services/event-tracking-service/Dockerfile, context: . }
+          - { name: challenge-service, file: services/challenge-service/Dockerfile, context: . }
+          - { name: insight-service, file: services/insight-service/Dockerfile, context: . }
+          - { name: notification-service, file: services/notification-service/Dockerfile, context: . }
+          - { name: streak-processor, file: services/streak-processor/Dockerfile, context: . }
+          - { name: streak-processor-lambda, file: services/streak-processor/Dockerfile.lambda, context: . }
+          - { name: frontend, file: frontend/web/Dockerfile, context: frontend }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.file }}
+          push: false
+          provenance: false
+          tags: teampulse/${{ matrix.name }}:ci
+          cache-from: type=gha,scope=${{ matrix.name }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.name }}
+
+  compose:
+    name: docker compose config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose config --quiet
