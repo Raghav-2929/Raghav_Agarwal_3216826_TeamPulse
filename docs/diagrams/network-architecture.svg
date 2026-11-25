@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="920" viewBox="0 0 1500 920" font-family="Helvetica, Arial, sans-serif">
+<rect width="1500" height="920" fill="#FFFFFF"/>
+<defs>
+<marker id="a232F3E" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#232F3E"/></marker>
+<marker id="a8D99A8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8D99A8"/></marker>
+</defs>
+<rect x="175" y="15" width="1310" height="895" fill="none" stroke="#232F3E" stroke-width="1.5"/>
+<text x="183" y="33" font-size="12" font-weight="bold" fill="#232F3E">AWS Cloud</text>
+<rect x="355" y="45" width="1120" height="850" fill="none" stroke="#00A4A6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="363" y="63" font-size="12" font-weight="bold" fill="#00A4A6">Region ap-south-1 (Mumbai)</text>
+<rect x="500" y="75" width="710" height="805" fill="none" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="508" y="93" font-size="12" font-weight="bold" fill="#8C4FFF">VPC teampulse-vpc · 10.20.0.0/16</text>
+<rect x="632" y="100" width="260" height="770" fill="none" stroke="#147EBA" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="640" y="116.5" font-size="10.5" font-weight="bold" fill="#147EBA">Availability Zone a</text>
+<rect x="902" y="100" width="260" height="770" fill="none" stroke="#147EBA" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="910" y="116.5" font-size="10.5" font-weight="bold" fill="#147EBA">Availability Zone b</text>
+<rect x="642" y="122" width="240" height="178" fill="#E9F3E6" stroke="#7AA116" stroke-width="1.5"/>
+<text x="650" y="138.5" font-size="10.5" font-weight="bold" fill="#7AA116">Public subnet · 10.20.0.0/24</text>
+<rect x="912" y="122" width="240" height="178" fill="#E9F3E6" stroke="#7AA116" stroke-width="1.5"/>
+<text x="920" y="138.5" font-size="10.5" font-weight="bold" fill="#7AA116">Public subnet · 10.20.1.0/24</text>
+<rect x="642" y="315" width="240" height="330" fill="#E6F2F8" stroke="#147EBA" stroke-width="1.5"/>
+<text x="650" y="331.5" font-size="10.5" font-weight="bold" fill="#147EBA">Private app subnet · 10.20.10.0/24</text>
+<rect x="912" y="315" width="240" height="330" fill="#E6F2F8" stroke="#147EBA" stroke-width="1.5"/>
+<text x="920" y="331.5" font-size="10.5" font-weight="bold" fill="#147EBA">Private app subnet · 10.20.11.0/24</text>
+<rect x="642" y="660" width="240" height="200" fill="#F8EBF9" stroke="#C925D1" stroke-width="1.5"/>
+<text x="650" y="676.5" font-size="10.5" font-weight="bold" fill="#C925D1">Private data subnet · 10.20.20.0/24</text>
+<rect x="912" y="660" width="240" height="200" fill="#F8EBF9" stroke="#C925D1" stroke-width="1.5"/>
+<text x="920" y="676.5" font-size="10.5" font-weight="bold" fill="#C925D1">Private data subnet · 10.20.21.0/24</text>
+<rect x="662" y="345" width="470" height="213" fill="#FFF5EB" stroke="#ED7100" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="670" y="361.5" font-size="10.5" font-weight="bold" fill="#ED7100">ECS Fargate cluster teampulse · Service Connect teampulse.local</text>
+<polyline points="155,432 195,432" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="265,474 265,645 370,645" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="335,410 430,410 430,190 448,190" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="552,190 662,190" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="897,218 897,372" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="700,345 700,284" fill="none" stroke="#8D99A8" stroke-width="1.5" marker-end="url(#a8D99A8)"/>
+<polyline points="662,246 530,246 530,215" fill="none" stroke="#8D99A8" stroke-width="1.5" marker-end="url(#a8D99A8)"/>
+<polyline points="662,520 652,520 652,745 662,745" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1132,358 1270,358" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1357,366 1357,382" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1270,415 1132,415" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1445,333 1455,333 1455,650 1100,650 1100,625" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1132,600 1166,600" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1258,600 1270,600" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<polyline points="1117,508 1212,508 1212,578" fill="none" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<rect x="20" y="400" width="135" height="64" rx="6" fill="#FFFFFF" stroke="#232F3E" stroke-width="1.5"/>
+<text x="28" y="417" font-size="12" font-weight="bold" fill="#232F3E">Users</text>
+<text x="28" y="431.0" font-size="10" fill="#545B64">employees · managers</text>
+<text x="28" y="443.5" font-size="10" fill="#545B64">admins (browser)</text>
+<rect x="195" y="390" width="140" height="84" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="203" y="407" font-size="12" font-weight="bold" fill="#232F3E">CloudFront</text>
+<text x="203" y="421.0" font-size="10" fill="#545B64">HTTPS for the browser</text>
+<text x="203" y="433.5" font-size="10" fill="#545B64">/* → S3 · /api/* → ALB</text>
+<text x="203" y="446.0" font-size="10" fill="#545B64">SPA rewrite function</text>
+<rect x="370" y="610" width="115" height="70" rx="6" fill="#FFFFFF" stroke="#7AA116" stroke-width="1.5"/>
+<text x="378" y="627" font-size="12" font-weight="bold" fill="#232F3E">S3 bucket</text>
+<text x="378" y="641.0" font-size="10" fill="#545B64">web app files</text>
+<text x="378" y="653.5" font-size="10" fill="#545B64">private · OAC only</text>
+<rect x="448" y="165" width="104" height="50" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="456" y="182" font-size="12" font-weight="bold" fill="#232F3E">Internet gateway</text>
+<text x="456" y="196.0" font-size="10" fill="#545B64">teampulse-igw</text>
+<rect x="662" y="162" width="470" height="56" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="670" y="179" font-size="12" font-weight="bold" fill="#232F3E">Application Load Balancer · teampulse-alb</text>
+<text x="670" y="193.0" font-size="10" fill="#545B64">HTTP:80 · forwards only with the CloudFront secret header · alb-sg</text>
+<rect x="662" y="230" width="200" height="54" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="670" y="247" font-size="12" font-weight="bold" fill="#232F3E">NAT gateway</text>
+<text x="670" y="261.0" font-size="10" fill="#545B64">outbound only · teampulse-nat-a</text>
+<rect x="677" y="372" width="440" height="46" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="685" y="389" font-size="12" font-weight="bold" fill="#232F3E">gateway</text>
+<text x="685" y="403.0" font-size="10" fill="#545B64">JWT check · routing · rate limit · gateway-sg + services-sg</text>
+<rect x="677" y="428" width="140" height="48" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="685" y="445" font-size="12" font-weight="bold" fill="#232F3E">identity</text>
+<text x="685" y="459.0" font-size="10" fill="#545B64">login, users, teams</text>
+<rect x="827" y="428" width="140" height="48" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="835" y="445" font-size="12" font-weight="bold" fill="#232F3E">habit</text>
+<text x="835" y="459.0" font-size="10" fill="#545B64">wellness goals</text>
+<rect x="977" y="428" width="140" height="48" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="985" y="445" font-size="12" font-weight="bold" fill="#232F3E">event-tracking</text>
+<text x="985" y="459.0" font-size="10" fill="#545B64">completions</text>
+<rect x="677" y="484" width="140" height="48" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="685" y="501" font-size="12" font-weight="bold" fill="#232F3E">challenge</text>
+<text x="685" y="515.0" font-size="10" fill="#545B64">leaderboards, badges</text>
+<rect x="827" y="484" width="140" height="48" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="835" y="501" font-size="12" font-weight="bold" fill="#232F3E">notification</text>
+<text x="835" y="515.0" font-size="10" fill="#545B64">reminders, messages</text>
+<rect x="977" y="484" width="140" height="48" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="985" y="501" font-size="12" font-weight="bold" fill="#232F3E">insight</text>
+<text x="985" y="515.0" font-size="10" fill="#545B64">analytics (read only)</text>
+<rect x="662" y="573" width="470" height="52" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="670" y="590" font-size="12" font-weight="bold" fill="#232F3E">Lambda · teampulse-streak-processor</text>
+<text x="670" y="604.0" font-size="10" fill="#545B64">streaks, badges, totals · publishes progress events · lambda-sg</text>
+<rect x="662" y="705" width="200" height="80" rx="6" fill="#FFFFFF" stroke="#C925D1" stroke-width="1.5"/>
+<text x="670" y="722" font-size="12" font-weight="bold" fill="#232F3E">RDS PostgreSQL</text>
+<text x="670" y="736.0" font-size="10" fill="#545B64">teampulse-db · db.t4g.micro</text>
+<text x="670" y="748.5" font-size="10" fill="#545B64">5 databases · rds-sg</text>
+<text x="670" y="761.0" font-size="10" fill="#545B64">TLS required</text>
+<rect x="1166" y="444" width="92" height="52" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="1174" y="461" font-size="12" font-weight="bold" fill="#232F3E">S3</text>
+<text x="1174" y="475.0" font-size="10" fill="#545B64">gateway endpoint</text>
+<text x="1174" y="487.5" font-size="10" fill="#545B64">(image layers)</text>
+<rect x="1166" y="578" width="92" height="44" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
+<text x="1174" y="595" font-size="12" font-weight="bold" fill="#232F3E">DynamoDB</text>
+<text x="1174" y="609.0" font-size="10" fill="#545B64">gateway endpoint</text>
+<rect x="1270" y="95" width="175" height="52" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
+<text x="1278" y="112" font-size="12" font-weight="bold" fill="#232F3E">ECR</text>
+<text x="1278" y="126.0" font-size="10" fill="#545B64">8 private image repositories</text>
+<rect x="1270" y="157" width="175" height="52" rx="6" fill="#FFFFFF" stroke="#DD344C" stroke-width="1.5"/>
+<text x="1278" y="174" font-size="12" font-weight="bold" fill="#232F3E">Secrets Manager</text>
+<text x="1278" y="188.0" font-size="10" fill="#545B64">JWT key · 5 DB passwords</text>
+<rect x="1270" y="219" width="175" height="52" rx="6" fill="#FFFFFF" stroke="#DD344C" stroke-width="1.5"/>
+<text x="1278" y="236" font-size="12" font-weight="bold" fill="#232F3E">IAM</text>
+<text x="1278" y="250.0" font-size="10" fill="#545B64">one least-privilege role each</text>
+<rect x="1270" y="300" width="175" height="66" rx="6" fill="#FFFFFF" stroke="#E7157B" stroke-width="1.5"/>
+<text x="1278" y="317" font-size="12" font-weight="bold" fill="#232F3E">EventBridge</text>
+<text x="1278" y="331.0" font-size="10" fill="#545B64">bus teampulse-events</text>
+<text x="1278" y="343.5" font-size="10" fill="#545B64">4 rules · hourly scheduler</text>
+<rect x="1270" y="382" width="175" height="52" rx="6" fill="#FFFFFF" stroke="#E7157B" stroke-width="1.5"/>
+<text x="1278" y="399" font-size="12" font-weight="bold" fill="#232F3E">SQS</text>
+<text x="1278" y="413.0" font-size="10" fill="#545B64">3 queues + dead-letter queues</text>
+<rect x="1270" y="570" width="175" height="60" rx="6" fill="#FFFFFF" stroke="#C925D1" stroke-width="1.5"/>
+<text x="1278" y="587" font-size="12" font-weight="bold" fill="#232F3E">DynamoDB</text>
+<text x="1278" y="601.0" font-size="10" fill="#545B64">teampulse-analytics</text>
+<text x="1278" y="613.5" font-size="10" fill="#545B64">on-demand</text>
+<rect x="1270" y="700" width="175" height="66" rx="6" fill="#FFFFFF" stroke="#E7157B" stroke-width="1.5"/>
+<text x="1278" y="717" font-size="12" font-weight="bold" fill="#232F3E">CloudWatch</text>
+<text x="1278" y="731.0" font-size="10" fill="#545B64">logs · metrics · dashboard</text>
+<text x="1278" y="743.5" font-size="10" fill="#545B64">10 alarms → SNS e-mail</text>
+<text x="20" y="35.0" font-size="15" font-weight="bold" fill="#232F3E">TeamPulse</text>
+<text x="20" y="54.5" font-size="15" font-weight="normal" fill="#232F3E">AWS network</text>
+<text x="20" y="74.0" font-size="15" font-weight="normal" fill="#232F3E">architecture</text>
+<text x="512" y="267.5" font-size="9.5" font-weight="bold" fill="#232F3E">Public tier</text>
+<text x="512" y="279.9" font-size="9.5" font-weight="normal" fill="#545B64">route → internet gw</text>
+<text x="512" y="292.2" font-size="9.5" font-weight="normal" fill="#545B64">NACL: 80/443 in</text>
+<text x="512" y="339.5" font-size="9.5" font-weight="bold" fill="#232F3E">App tier</text>
+<text x="512" y="351.9" font-size="9.5" font-weight="normal" fill="#545B64">route → NAT gateway</text>
+<text x="512" y="364.2" font-size="9.5" font-weight="normal" fill="#545B64">+ S3 / DynamoDB</text>
+<text x="512" y="376.6" font-size="9.5" font-weight="normal" fill="#545B64">endpoints</text>
+<text x="512" y="684.5" font-size="9.5" font-weight="bold" fill="#232F3E">Data tier</text>
+<text x="512" y="696.9" font-size="9.5" font-weight="normal" fill="#545B64">local routes only</text>
+<text x="512" y="709.2" font-size="9.5" font-weight="normal" fill="#545B64">(no internet)</text>
+<text x="677" y="547.5" font-size="9.5" font-weight="normal" fill="#545B64">auto scaling 1–2 tasks per service · Fargate Spot · services-sg</text>
+<text x="922" y="729.5" font-size="9.5" font-weight="normal" fill="#545B64">DB subnet group spans both zones</text>
+<text x="922" y="741.9" font-size="9.5" font-weight="normal" fill="#545B64">(Single-AZ for the demo)</text>
+<text x="1270" y="794.5" font-size="9.5" font-weight="normal" fill="#545B64">ECR, Secrets Manager, EventBridge,</text>
+<text x="1270" y="806.9" font-size="9.5" font-weight="normal" fill="#545B64">SQS and CloudWatch are reached</text>
+<text x="1270" y="819.2" font-size="9.5" font-weight="normal" fill="#545B64">through the NAT gateway</text>
+<rect x="156" y="414" width="30.6" height="14.3" fill="#FFFFFF" opacity="0.92"/>
+<text x="158" y="422.5" font-size="9.5" font-weight="normal" fill="#232F3E">HTTPS</text>
+<rect x="270" y="557" width="99.8" height="14.3" fill="#FFFFFF" opacity="0.92"/>
+<text x="272" y="565.5" font-size="9.5" font-weight="normal" fill="#232F3E">static files (OAC)</text>
+<rect x="434" y="297" width="69.5" height="37.1" fill="#FFFFFF" opacity="0.92"/>
+<text x="436" y="305.0" font-size="9" font-weight="normal" fill="#232F3E">/api/* only</text>
+<text x="436" y="316.7" font-size="9" font-weight="normal" fill="#232F3E">HTTP + secret</text>
+<text x="436" y="328.4" font-size="9" font-weight="normal" fill="#232F3E">header</text>
+<rect x="901" y="302" width="49.4" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="903" y="310.0" font-size="9" font-weight="normal" fill="#232F3E">port 8000</text>
+<rect x="663" y="683" width="54.4" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="665" y="691.0" font-size="9" font-weight="normal" fill="#232F3E">5432 · TLS</text>
+<rect x="1166" y="343" width="34.2" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="1168" y="351.0" font-size="9" font-weight="normal" fill="#232F3E">events</text>
+<rect x="1162" y="400" width="39.3" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="1164" y="408.0" font-size="9" font-weight="normal" fill="#232F3E">consume</text>
+<rect x="1286" y="636" width="140.1" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="1288" y="644.0" font-size="9" font-weight="normal" fill="#232F3E">activity.completed → Lambda</text>
+<rect x="1214" y="529" width="29.2" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="1216" y="537.0" font-size="9" font-weight="normal" fill="#232F3E">reads</text>
+<rect x="1132" y="586" width="34.2" height="13.7" fill="#FFFFFF" opacity="0.92"/>
+<text x="1134" y="594.0" font-size="9" font-weight="normal" fill="#232F3E">writes</text>
+<text x="20" y="531.0" font-size="11" font-weight="bold" fill="#232F3E">Legend</text>
+<text x="20" y="721.5" font-size="9.5" font-weight="bold" fill="#232F3E">Security groups</text>
+<text x="20" y="733.9" font-size="9.5" font-weight="normal" fill="#545B64">alb-sg: 80, 443 from internet</text>
+<text x="20" y="746.2" font-size="9.5" font-weight="normal" fill="#545B64">gateway-sg: 8000 from alb-sg</text>
+<text x="20" y="758.5" font-size="9.5" font-weight="normal" fill="#545B64">services-sg: 8000 from</text>
+<text x="20" y="770.9" font-size="9.5" font-weight="normal" fill="#545B64">   gateway-sg and itself</text>
+<text x="20" y="783.2" font-size="9.5" font-weight="normal" fill="#545B64">rds-sg: 5432 from services-sg</text>
+<text x="20" y="795.6" font-size="9.5" font-weight="normal" fill="#545B64">lambda-sg: no inbound</text>
+<rect x="20" y="542" width="22" height="13" fill="#E9F3E6" stroke="#7AA116" stroke-width="1.5"/>
+<text x="50" y="553" font-size="10" fill="#545B64">Public subnet</text>
+<rect x="20" y="562" width="22" height="13" fill="#E6F2F8" stroke="#147EBA" stroke-width="1.5"/>
+<text x="50" y="573" font-size="10" fill="#545B64">Private app subnet</text>
+<rect x="20" y="582" width="22" height="13" fill="#F8EBF9" stroke="#C925D1" stroke-width="1.5"/>
+<text x="50" y="593" font-size="10" fill="#545B64">Private data subnet</text>
+<rect x="20" y="602" width="22" height="13" fill="#FFF5EB" stroke="#ED7100" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="50" y="613" font-size="10" fill="#545B64">ECS cluster</text>
+<line x1="20" y1="638" x2="42" y2="638" stroke="#232F3E" stroke-width="1.5" marker-end="url(#a232F3E)"/>
+<text x="50" y="642" font-size="10" fill="#545B64">request / event flow</text>
+<line x1="20" y1="658" x2="42" y2="658" stroke="#8D99A8" stroke-width="1.5" marker-end="url(#a8D99A8)"/>
+<text x="50" y="662" font-size="10" fill="#545B64">outbound to AWS APIs</text>
+</svg>

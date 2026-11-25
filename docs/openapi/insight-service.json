@@ -1,0 +1,880 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TeamPulse Insight Service",
+    "description": "Personal analytics for employees and k-anonymised team trends for managers (reads the DynamoDB analytics table written by the streak processor).",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health/live": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Liveness probe",
+        "operationId": "live_health_live_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Live Health Live Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Readiness probe (dependencies reachable)",
+        "operationId": "ready_health_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/insights/me": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "My trends, streaks and badges",
+        "operationId": "my_insights_api_v1_insights_me_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Category"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Default: 29 days before `to`",
+              "title": "From"
+            },
+            "description": "Default: 29 days before `to`"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Default: today (UTC)",
+              "title": "To"
+            },
+            "description": "Default: today (UTC)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonalInsights"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/insights/me/streaks": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "My streak per habit",
+        "operationId": "my_streaks_api_v1_insights_me_streaks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/StreakOut"
+                  },
+                  "type": "array",
+                  "title": "Response My Streaks Api V1 Insights Me Streaks Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/insights/me/badges": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "Badges I have earned",
+        "operationId": "my_badges_api_v1_insights_me_badges_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/BadgeOut"
+                  },
+                  "type": "array",
+                  "title": "Response My Badges Api V1 Insights Me Badges Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/insights/teams/{team_id}": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "Aggregated, k-anonymised team trends (team manager or admin)",
+        "operationId": "team_insights_api_v1_insights_teams__team_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Category"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Default: 29 days before `to`",
+              "title": "From"
+            },
+            "description": "Default: 29 days before `to`"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Default: today (UTC)",
+              "title": "To"
+            },
+            "description": "Default: today (UTC)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamInsights"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/insights/org": {
+      "get": {
+        "tags": [
+          "insights"
+        ],
+        "summary": "Organisation-wide aggregates per team (admin)",
+        "operationId": "org_insights_api_v1_insights_org_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Default: 29 days before `to`",
+              "title": "From"
+            },
+            "description": "Default: 29 days before `to`"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Default: today (UTC)",
+              "title": "To"
+            },
+            "description": "Default: today (UTC)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrgInsights"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BadgeOut": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon"
+          },
+          "awarded_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Awarded At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "name",
+          "description",
+          "icon",
+          "awarded_at"
+        ],
+        "title": "BadgeOut"
+      },
+      "Category": {
+        "type": "string",
+        "enum": [
+          "fitness",
+          "mindfulness",
+          "nutrition",
+          "sleep",
+          "hydration",
+          "learning"
+        ],
+        "title": "Category"
+      },
+      "CategoryCount": {
+        "properties": {
+          "category": {
+            "$ref": "#/components/schemas/Category"
+          },
+          "completions": {
+            "type": "integer",
+            "title": "Completions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "category",
+          "completions"
+        ],
+        "title": "CategoryCount"
+      },
+      "DailyPoint": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "completions": {
+            "type": "integer",
+            "title": "Completions"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "completions",
+          "value"
+        ],
+        "title": "DailyPoint"
+      },
+      "Frequency": {
+        "type": "string",
+        "enum": [
+          "daily",
+          "weekly"
+        ],
+        "title": "Frequency"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "OrgInsights": {
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date",
+            "title": "From"
+          },
+          "to": {
+            "type": "string",
+            "format": "date",
+            "title": "To"
+          },
+          "min_cohort_size": {
+            "type": "integer",
+            "title": "Min Cohort Size"
+          },
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/OrgTeamSummary"
+            },
+            "type": "array",
+            "title": "Teams"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "min_cohort_size",
+          "teams"
+        ],
+        "title": "OrgInsights"
+      },
+      "OrgTeamSummary": {
+        "properties": {
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "completions": {
+            "type": "integer",
+            "title": "Completions"
+          },
+          "active_days": {
+            "type": "integer",
+            "title": "Active Days"
+          },
+          "suppressed_days": {
+            "type": "integer",
+            "title": "Suppressed Days"
+          },
+          "avg_active_members": {
+            "type": "number",
+            "title": "Avg Active Members"
+          }
+        },
+        "type": "object",
+        "required": [
+          "team_id",
+          "completions",
+          "active_days",
+          "suppressed_days",
+          "avg_active_members"
+        ],
+        "title": "OrgTeamSummary"
+      },
+      "PersonalInsights": {
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date",
+            "title": "From"
+          },
+          "to": {
+            "type": "string",
+            "format": "date",
+            "title": "To"
+          },
+          "totals": {
+            "$ref": "#/components/schemas/PersonalTotals"
+          },
+          "daily": {
+            "items": {
+              "$ref": "#/components/schemas/DailyPoint"
+            },
+            "type": "array",
+            "title": "Daily"
+          },
+          "by_category": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryCount"
+            },
+            "type": "array",
+            "title": "By Category"
+          },
+          "streaks": {
+            "items": {
+              "$ref": "#/components/schemas/StreakOut"
+            },
+            "type": "array",
+            "title": "Streaks"
+          },
+          "badges": {
+            "items": {
+              "$ref": "#/components/schemas/BadgeOut"
+            },
+            "type": "array",
+            "title": "Badges"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "totals",
+          "daily",
+          "by_category",
+          "streaks",
+          "badges"
+        ],
+        "title": "PersonalInsights"
+      },
+      "PersonalTotals": {
+        "properties": {
+          "completions": {
+            "type": "integer",
+            "title": "Completions"
+          },
+          "active_days": {
+            "type": "integer",
+            "title": "Active Days"
+          },
+          "total_value": {
+            "type": "number",
+            "title": "Total Value"
+          },
+          "consistency_rate": {
+            "type": "number",
+            "title": "Consistency Rate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "completions",
+          "active_days",
+          "total_value",
+          "consistency_rate"
+        ],
+        "title": "PersonalTotals"
+      },
+      "StreakOut": {
+        "properties": {
+          "habit_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Habit Id"
+          },
+          "frequency": {
+            "$ref": "#/components/schemas/Frequency"
+          },
+          "current": {
+            "type": "integer",
+            "title": "Current"
+          },
+          "longest": {
+            "type": "integer",
+            "title": "Longest"
+          },
+          "alive": {
+            "type": "boolean",
+            "title": "Alive"
+          },
+          "last_period": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Period"
+          },
+          "total_completions": {
+            "type": "integer",
+            "title": "Total Completions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "habit_id",
+          "frequency",
+          "current",
+          "longest",
+          "alive",
+          "last_period",
+          "total_completions"
+        ],
+        "title": "StreakOut"
+      },
+      "TeamDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "completions": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completions"
+          },
+          "active_members": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Members"
+          },
+          "suppressed": {
+            "type": "boolean",
+            "title": "Suppressed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "completions",
+          "active_members",
+          "suppressed"
+        ],
+        "title": "TeamDay"
+      },
+      "TeamInsights": {
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "date",
+            "title": "From"
+          },
+          "to": {
+            "type": "string",
+            "format": "date",
+            "title": "To"
+          },
+          "team_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Team Id"
+          },
+          "min_cohort_size": {
+            "type": "integer",
+            "title": "Min Cohort Size"
+          },
+          "totals": {
+            "$ref": "#/components/schemas/TeamTotals"
+          },
+          "daily": {
+            "items": {
+              "$ref": "#/components/schemas/TeamDay"
+            },
+            "type": "array",
+            "title": "Daily"
+          },
+          "by_category": {
+            "items": {
+              "$ref": "#/components/schemas/CategoryCount"
+            },
+            "type": "array",
+            "title": "By Category"
+          },
+          "suppressed_categories": {
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            },
+            "type": "array",
+            "title": "Suppressed Categories"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "team_id",
+          "min_cohort_size",
+          "totals",
+          "daily",
+          "by_category",
+          "suppressed_categories"
+        ],
+        "title": "TeamInsights"
+      },
+      "TeamTotals": {
+        "properties": {
+          "completions": {
+            "type": "integer",
+            "title": "Completions"
+          },
+          "active_days": {
+            "type": "integer",
+            "title": "Active Days"
+          },
+          "suppressed_days": {
+            "type": "integer",
+            "title": "Suppressed Days"
+          },
+          "avg_active_members": {
+            "type": "number",
+            "title": "Avg Active Members"
+          }
+        },
+        "type": "object",
+        "required": [
+          "completions",
+          "active_days",
+          "suppressed_days",
+          "avg_active_members"
+        ],
+        "title": "TeamTotals"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "description": "RS256 access token from POST /api/v1/auth/login",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "insights",
+      "description": "Personal and aggregated analytics"
+    }
+  ]
+}
