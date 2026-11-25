@@ -1,0 +1,1 @@
+{"id": "<aws.scheduler.execution-id>", "type": "reminder.tick", "source": "scheduler", "version": 1, "time": "<aws.scheduler.scheduled-time>", "data": {}}

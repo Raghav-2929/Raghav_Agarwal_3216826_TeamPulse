@@ -1,0 +1,10 @@
+{
+  "source": [
+    {
+      "prefix": "teampulse."
+    }
+  ],
+  "detail-type": [
+    "progress.updated"
+  ]
+}

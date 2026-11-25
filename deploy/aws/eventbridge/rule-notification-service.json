@@ -1,0 +1,18 @@
+{
+  "source": [
+    {
+      "prefix": "teampulse."
+    }
+  ],
+  "detail-type": [
+    "user.registered",
+    "user.updated",
+    "activity.completed",
+    "streak.milestone",
+    "badge.awarded",
+    "challenge.created",
+    "challenge.joined",
+    "challenge.goal_reached",
+    "reminder.tick"
+  ]
+}

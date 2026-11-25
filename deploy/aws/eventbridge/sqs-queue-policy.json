@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowOnlyTheTeamPulseRule",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "events.amazonaws.com"
+      },
+      "Action": "sqs:SendMessage",
+      "Resource": "arn:aws:sqs:<REGION>:<ACCOUNT_ID>:<QUEUE_NAME>",
+      "Condition": {
+        "ArnEquals": {
+          "aws:SourceArn": "arn:aws:events:<REGION>:<ACCOUNT_ID>:rule/teampulse-events/<RULE_NAME>"
+        }
+      }
+    }
+  ]
+}

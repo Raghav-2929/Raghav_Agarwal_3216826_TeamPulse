@@ -1,0 +1,159 @@
+{
+  "family": "teampulse-identity-service",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/teampulse-identity-service-execution",
+  "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/teampulse-identity-service-task",
+  "containerDefinitions": [
+    {
+      "name": "identity-service",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/teampulse/identity-service:<IMAGE_TAG>",
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "http",
+          "containerPort": 8000,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "environment": [
+        {
+          "name": "ENVIRONMENT",
+          "value": "aws"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "INFO"
+        },
+        {
+          "name": "LOG_FORMAT",
+          "value": "json"
+        },
+        {
+          "name": "METRICS_EMF",
+          "value": "true"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "<REGION>"
+        },
+        {
+          "name": "AUTO_CREATE_SCHEMA",
+          "value": "false"
+        },
+        {
+          "name": "JWT_ISSUER",
+          "value": "teampulse-identity"
+        },
+        {
+          "name": "JWT_AUDIENCE",
+          "value": "teampulse"
+        },
+        {
+          "name": "JWT_JWKS_URL",
+          "value": "http://identity-service:8000/.well-known/jwks.json"
+        },
+        {
+          "name": "EVENT_BUS_DRIVER",
+          "value": "eventbridge"
+        },
+        {
+          "name": "EVENT_BUS_NAME",
+          "value": "teampulse-events"
+        },
+        {
+          "name": "CORS_ORIGINS",
+          "value": "https://<CLOUDFRONT_DOMAIN>"
+        },
+        {
+          "name": "DATA_DIR",
+          "value": "/tmp"
+        },
+        {
+          "name": "SERVICE_NAME",
+          "value": "identity-service"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "<RDS_ENDPOINT>"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "DB_SSL",
+          "value": "require"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "identity"
+        },
+        {
+          "name": "DB_USER",
+          "value": "identity_svc"
+        },
+        {
+          "name": "JWT_KEY_ID",
+          "value": "teampulse-key-1"
+        },
+        {
+          "name": "SEED_DEMO_DATA",
+          "value": "true"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:teampulse/identity/db-password"
+        },
+        {
+          "name": "JWT_PRIVATE_KEY",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:teampulse/identity/jwt-private-key"
+        }
+      ],
+      "readonlyRootFilesystem": true,
+      "mountPoints": [
+        {
+          "sourceVolume": "tmp",
+          "containerPath": "/tmp"
+        }
+      ],
+      "user": "10001",
+      "healthCheck": {
+        "command": [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=2).status == 200 else 1)"
+        ],
+        "interval": 15,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 30
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/teampulse/identity-service",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "tmp"
+    }
+  ]
+}

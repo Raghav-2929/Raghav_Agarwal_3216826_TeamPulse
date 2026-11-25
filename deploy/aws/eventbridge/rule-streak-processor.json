@@ -1,0 +1,11 @@
+{
+  "source": [
+    {
+      "prefix": "teampulse."
+    }
+  ],
+  "detail-type": [
+    "activity.completed",
+    "badge_rules.changed"
+  ]
+}

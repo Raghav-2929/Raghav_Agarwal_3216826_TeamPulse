@@ -1,0 +1,155 @@
+{
+  "family": "teampulse-notification-service",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "executionRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/teampulse-notification-service-execution",
+  "taskRoleArn": "arn:aws:iam::<ACCOUNT_ID>:role/teampulse-notification-service-task",
+  "containerDefinitions": [
+    {
+      "name": "notification-service",
+      "image": "<ACCOUNT_ID>.dkr.ecr.<REGION>.amazonaws.com/teampulse/notification-service:<IMAGE_TAG>",
+      "essential": true,
+      "portMappings": [
+        {
+          "name": "http",
+          "containerPort": 8000,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "environment": [
+        {
+          "name": "ENVIRONMENT",
+          "value": "aws"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "value": "INFO"
+        },
+        {
+          "name": "LOG_FORMAT",
+          "value": "json"
+        },
+        {
+          "name": "METRICS_EMF",
+          "value": "true"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "<REGION>"
+        },
+        {
+          "name": "AUTO_CREATE_SCHEMA",
+          "value": "false"
+        },
+        {
+          "name": "JWT_ISSUER",
+          "value": "teampulse-identity"
+        },
+        {
+          "name": "JWT_AUDIENCE",
+          "value": "teampulse"
+        },
+        {
+          "name": "JWT_JWKS_URL",
+          "value": "http://identity-service:8000/.well-known/jwks.json"
+        },
+        {
+          "name": "EVENT_BUS_DRIVER",
+          "value": "eventbridge"
+        },
+        {
+          "name": "EVENT_BUS_NAME",
+          "value": "teampulse-events"
+        },
+        {
+          "name": "CORS_ORIGINS",
+          "value": "https://<CLOUDFRONT_DOMAIN>"
+        },
+        {
+          "name": "DATA_DIR",
+          "value": "/tmp"
+        },
+        {
+          "name": "SERVICE_NAME",
+          "value": "notification-service"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "<RDS_ENDPOINT>"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "DB_SSL",
+          "value": "require"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "notifications"
+        },
+        {
+          "name": "DB_USER",
+          "value": "notifications_svc"
+        },
+        {
+          "name": "REMINDER_SCHEDULER",
+          "value": "external"
+        },
+        {
+          "name": "EVENT_QUEUE_URL",
+          "value": "https://sqs.<REGION>.amazonaws.com/<ACCOUNT_ID>/teampulse-notification-events"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:<REGION>:<ACCOUNT_ID>:secret:teampulse/notifications/db-password"
+        }
+      ],
+      "readonlyRootFilesystem": true,
+      "mountPoints": [
+        {
+          "sourceVolume": "tmp",
+          "containerPath": "/tmp"
+        }
+      ],
+      "user": "10001",
+      "healthCheck": {
+        "command": [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=2).status == 200 else 1)"
+        ],
+        "interval": 15,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 30
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/teampulse/notification-service",
+          "awslogs-region": "<REGION>",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "tmp"
+    }
+  ]
+}
