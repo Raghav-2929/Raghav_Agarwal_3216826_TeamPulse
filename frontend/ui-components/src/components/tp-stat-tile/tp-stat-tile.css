@@ -1,0 +1,74 @@
+:host {
+  display: block;
+  font-family: var(--tp-font-family-sans);
+  color: var(--tp-color-text);
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tp-space-1);
+  block-size: 100%;
+  box-sizing: border-box;
+  padding: var(--tp-space-5);
+  /* Frosted glass with a soft accent glow in the corner (--tp-tile-accent lets a page tint it). */
+  background:
+    radial-gradient(11rem 11rem at 100% 0%, color-mix(in srgb, var(--tp-tile-accent, var(--tp-color-primary)) 16%, transparent), transparent 70%),
+    var(--tp-glass-bg);
+  -webkit-backdrop-filter: var(--tp-glass-blur);
+  backdrop-filter: var(--tp-glass-blur);
+  border: 1px solid var(--tp-glass-border);
+  border-radius: var(--tp-radius-xl);
+  box-shadow: var(--tp-glass-shadow);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--tp-space-2);
+  font-size: var(--tp-font-size-xs);
+  font-weight: var(--tp-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tp-color-text-subtle);
+}
+
+.value {
+  margin-block-start: var(--tp-space-1);
+  font-size: 2rem;
+  font-weight: var(--tp-font-weight-bold);
+  line-height: var(--tp-line-height-tight);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.delta {
+  font-size: var(--tp-font-size-sm);
+  font-weight: var(--tp-font-weight-semibold);
+  color: var(--tp-color-text-muted);
+}
+
+.delta.good {
+  color: var(--tp-color-success);
+}
+
+.delta.bad {
+  color: var(--tp-color-danger);
+}
+
+.hint {
+  font-size: var(--tp-font-size-xs);
+  color: var(--tp-color-text-subtle);
+}
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

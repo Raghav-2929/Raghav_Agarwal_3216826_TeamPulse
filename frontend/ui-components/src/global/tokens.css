@@ -1,0 +1,308 @@
+/*
+ * TeamPulse design tokens — the single source of truth for colour, spacing, radius,
+ * typography, elevation, glass surfaces and motion.
+ *
+ * Shipped as `@teampulse/ui-components/tokens.css`. Load it ONCE at the application root;
+ * every TeamPulse web component (and the TeamPulse web app) reads these custom properties.
+ * CSS custom properties inherit through shadow roots, so components pick them up automatically.
+ *
+ * Look: "glass" — frosted, semi-transparent panels floating over a soft blue gradient.
+ *   - --tp-gradient-page     the page background the glass sits on
+ *   - --tp-glass-bg          main panels (cards, sidebar, top bar)
+ *   - --tp-glass-bg-strong   floating layers that must stay readable (menus, dialogs, tooltips)
+ *   - --tp-glass-bg-subtle   tiles nested inside a panel
+ *   - --tp-glass-blur        the frosted-glass blur (backdrop-filter)
+ *
+ * Theming:
+ *   - Light is the default.
+ *   - Dark follows `prefers-color-scheme: dark` unless the page forces a theme with
+ *     `<html data-theme="light">` or `<html data-theme="dark">`.
+ *
+ * Naming: --tp-<group>-<role>[-<variant>]
+ */
+
+:root {
+  color-scheme: light;
+
+  /* ---------- Brand & semantic colour ---------- */
+  --tp-color-primary: #2563eb;
+  --tp-color-primary-hover: #1d4ed8;
+  --tp-color-primary-contrast: #ffffff;
+  --tp-color-primary-soft: #e3ebff;
+
+  --tp-color-success: #15803d;
+  --tp-color-success-soft: #dcf7e6;
+  --tp-color-warning: #b45309;
+  --tp-color-warning-soft: #fdf0d5;
+  --tp-color-danger: #c42727;
+  --tp-color-danger-soft: #fde4e4;
+  --tp-color-info: #0369a1;
+  --tp-color-info-soft: #def1fc;
+
+  /* ---------- Surfaces & text ---------- */
+  --tp-color-bg: #e6eefc;
+  --tp-color-surface: #ffffff;
+  --tp-color-surface-muted: #edf2fb;
+  --tp-color-surface-hover: rgb(255 255 255 / 0.7);
+  --tp-color-border: #dbe3f1;
+  --tp-color-border-strong: #c2cde2;
+  --tp-color-text: #0f1a33;
+  --tp-color-text-muted: #47536f;
+  --tp-color-text-subtle: #5d6a87;
+  --tp-color-text-inverse: #ffffff;
+  --tp-color-focus-ring: #2563eb;
+  --tp-color-overlay: rgb(15 26 51 / 0.32);
+
+  /* ---------- Glass ---------- */
+  --tp-gradient-page:
+    radial-gradient(56rem 38rem at -8% -12%, rgb(96 165 250 / 0.55), transparent 62%),
+    radial-gradient(48rem 34rem at 108% -4%, rgb(167 139 250 / 0.42), transparent 62%),
+    radial-gradient(54rem 40rem at 104% 108%, rgb(56 189 248 / 0.38), transparent 62%),
+    radial-gradient(44rem 32rem at -4% 104%, rgb(129 140 248 / 0.36), transparent 62%),
+    linear-gradient(160deg, #e8f0ff 0%, #dbe6fb 50%, #e2e8fb 100%);
+  --tp-gradient-primary: linear-gradient(135deg, #3574f0 0%, #2563eb 50%, #1d4ed8 100%);
+  --tp-glass-bg: rgb(255 255 255 / 0.62);
+  --tp-glass-bg-strong: rgb(255 255 255 / 0.9);
+  --tp-glass-bg-subtle: rgb(255 255 255 / 0.55);
+  --tp-glass-border: rgb(255 255 255 / 0.8);
+  --tp-glass-blur: blur(22px) saturate(170%);
+  --tp-glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.75);
+  --tp-glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.75), 0 14px 34px -18px rgb(30 58 138 / 0.28), 0 2px 8px -4px rgb(30 58 138 / 0.08);
+  --tp-glass-shadow-hover: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 20px 40px -18px rgb(30 58 138 / 0.36), 0 4px 12px -6px rgb(30 58 138 / 0.12);
+
+  /* ---------- Activity-type (category) colours ---------- */
+  --tp-color-category-fitness: #ea580c;
+  --tp-color-category-mindfulness: #7c3aed;
+  --tp-color-category-nutrition: #16a34a;
+  --tp-color-category-sleep: #2563eb;
+  --tp-color-category-hydration: #0891b2;
+  --tp-color-category-learning: #ca8a04;
+
+  /* ---------- Data visualisation ---------- */
+  --tp-chart-1: #2563eb;
+  --tp-chart-2: #06b6d4;
+  --tp-chart-3: #f97316;
+  --tp-chart-4: #16a34a;
+  --tp-chart-5: #8b5cf6;
+  --tp-chart-6: #ca8a04;
+  --tp-chart-grid: rgb(148 163 194 / 0.28);
+  --tp-chart-axis: #5d6a87;
+  --tp-chart-gap: #9aa6bf;
+
+  /* Leaderboard podium */
+  --tp-color-gold: #d4a017;
+  --tp-color-silver: #9ca3af;
+  --tp-color-bronze: #b4703a;
+
+  /* ---------- Spacing (4px grid) ---------- */
+  --tp-space-0: 0;
+  --tp-space-1: 0.25rem;
+  --tp-space-2: 0.5rem;
+  --tp-space-3: 0.75rem;
+  --tp-space-4: 1rem;
+  --tp-space-5: 1.25rem;
+  --tp-space-6: 1.5rem;
+  --tp-space-8: 2rem;
+  --tp-space-10: 2.5rem;
+  --tp-space-12: 3rem;
+
+  /* ---------- Radius ---------- */
+  --tp-radius-sm: 8px;
+  --tp-radius-md: 12px;
+  --tp-radius-lg: 18px;
+  --tp-radius-xl: 24px;
+  --tp-radius-pill: 999px;
+
+  /* ---------- Typography ---------- */
+  --tp-font-family-sans: 'Inter', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --tp-font-family-mono: ui-monospace, SFMono-Regular, 'Cascadia Code', Menlo, Consolas, monospace;
+  --tp-font-size-xs: 0.75rem;
+  --tp-font-size-sm: 0.875rem;
+  --tp-font-size-md: 1rem;
+  --tp-font-size-lg: 1.0625rem;
+  --tp-font-size-xl: 1.375rem;
+  --tp-font-size-2xl: 1.75rem;
+  --tp-font-size-3xl: 2.25rem;
+  --tp-font-weight-regular: 400;
+  --tp-font-weight-medium: 500;
+  --tp-font-weight-semibold: 600;
+  --tp-font-weight-bold: 700;
+  --tp-line-height-tight: 1.2;
+  --tp-line-height-normal: 1.5;
+
+  /* ---------- Elevation ---------- */
+  --tp-shadow-sm: 0 1px 2px rgb(30 58 138 / 0.05), 0 2px 6px -2px rgb(30 58 138 / 0.08);
+  --tp-shadow-md: 0 8px 20px -10px rgb(30 58 138 / 0.22), 0 2px 6px -3px rgb(30 58 138 / 0.08);
+  --tp-shadow-lg: 0 24px 48px -20px rgb(30 58 138 / 0.35), 0 6px 14px -8px rgb(30 58 138 / 0.14);
+  --tp-shadow-primary: 0 8px 18px -8px rgb(37 99 235 / 0.65);
+
+  /* ---------- Motion ---------- */
+  --tp-duration-fast: 120ms;
+  --tp-duration-normal: 240ms;
+  --tp-duration-slow: 600ms;
+  --tp-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---------- Layout ---------- */
+  --tp-focus-ring: 0 0 0 3px color-mix(in srgb, var(--tp-color-focus-ring) 35%, transparent);
+  --tp-sidebar-width: 16rem;
+  --tp-header-height: 4rem;
+  --tp-shell-gap: 1rem;
+  --tp-content-max-width: 80rem;
+  --tp-z-sticky: 10;
+  --tp-z-overlay: 40;
+  --tp-z-toast: 50;
+}
+
+/* ---------- Dark theme (system preference unless forced light) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --tp-color-primary: #60a5fa;
+    --tp-color-primary-hover: #93c5fd;
+    --tp-color-primary-contrast: #06102a;
+    --tp-color-primary-soft: #172b52;
+    --tp-color-success: #4ade80;
+    --tp-color-success-soft: #123224;
+    --tp-color-warning: #fbbf24;
+    --tp-color-warning-soft: #362a10;
+    --tp-color-danger: #f87171;
+    --tp-color-danger-soft: #3b1a22;
+    --tp-color-info: #38bdf8;
+    --tp-color-info-soft: #0f2d42;
+    --tp-color-bg: #070d1f;
+    --tp-color-surface: #111a33;
+    --tp-color-surface-muted: #19233f;
+    --tp-color-surface-hover: rgb(255 255 255 / 0.06);
+    --tp-color-border: #243156;
+    --tp-color-border-strong: #34436b;
+    --tp-color-text: #e8edf8;
+    --tp-color-text-muted: #aab5cd;
+    --tp-color-text-subtle: #8c97b1;
+    --tp-color-text-inverse: #070d1f;
+    --tp-color-focus-ring: #60a5fa;
+    --tp-color-overlay: rgb(2 6 18 / 0.6);
+    --tp-gradient-page:
+      radial-gradient(60rem 40rem at -10% -10%, rgb(37 99 235 / 0.35), transparent 60%),
+      radial-gradient(50rem 36rem at 110% 0%, rgb(124 58 237 / 0.28), transparent 60%),
+      radial-gradient(56rem 40rem at 100% 110%, rgb(8 145 178 / 0.28), transparent 60%),
+      radial-gradient(40rem 30rem at 0% 100%, rgb(30 64 175 / 0.3), transparent 60%),
+      linear-gradient(160deg, #070d1f 0%, #0a1430 50%, #0b1228 100%);
+    --tp-gradient-primary: linear-gradient(135deg, #7db4fb 0%, #60a5fa 50%, #4a90f2 100%);
+    --tp-glass-bg: rgb(17 26 51 / 0.55);
+    --tp-glass-bg-strong: rgb(17 26 51 / 0.92);
+    --tp-glass-bg-subtle: rgb(255 255 255 / 0.04);
+    --tp-glass-border: rgb(255 255 255 / 0.09);
+    --tp-glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.06);
+    --tp-glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 36px -18px rgb(0 0 0 / 0.7), 0 2px 8px -4px rgb(0 0 0 / 0.4);
+    --tp-glass-shadow-hover: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 22px 44px -18px rgb(0 0 0 / 0.8), 0 4px 12px -6px rgb(0 0 0 / 0.5);
+    --tp-color-category-fitness: #fb923c;
+    --tp-color-category-mindfulness: #a78bfa;
+    --tp-color-category-nutrition: #4ade80;
+    --tp-color-category-sleep: #60a5fa;
+    --tp-color-category-hydration: #22d3ee;
+    --tp-color-category-learning: #facc15;
+    --tp-chart-1: #60a5fa;
+    --tp-chart-2: #22d3ee;
+    --tp-chart-3: #fb923c;
+    --tp-chart-4: #4ade80;
+    --tp-chart-5: #a78bfa;
+    --tp-chart-6: #facc15;
+    --tp-chart-grid: rgb(148 163 194 / 0.14);
+    --tp-chart-axis: #8c97b1;
+    --tp-chart-gap: #56607a;
+    --tp-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --tp-shadow-md: 0 8px 20px -10px rgb(0 0 0 / 0.6);
+    --tp-shadow-lg: 0 24px 48px -20px rgb(0 0 0 / 0.7);
+    --tp-shadow-primary: 0 8px 18px -8px rgb(59 130 246 / 0.6);
+  }
+}
+
+/* ---------- Dark theme (forced) ---------- */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --tp-color-primary: #60a5fa;
+  --tp-color-primary-hover: #93c5fd;
+  --tp-color-primary-contrast: #06102a;
+  --tp-color-primary-soft: #172b52;
+  --tp-color-success: #4ade80;
+  --tp-color-success-soft: #123224;
+  --tp-color-warning: #fbbf24;
+  --tp-color-warning-soft: #362a10;
+  --tp-color-danger: #f87171;
+  --tp-color-danger-soft: #3b1a22;
+  --tp-color-info: #38bdf8;
+  --tp-color-info-soft: #0f2d42;
+  --tp-color-bg: #070d1f;
+  --tp-color-surface: #111a33;
+  --tp-color-surface-muted: #19233f;
+  --tp-color-surface-hover: rgb(255 255 255 / 0.06);
+  --tp-color-border: #243156;
+  --tp-color-border-strong: #34436b;
+  --tp-color-text: #e8edf8;
+  --tp-color-text-muted: #aab5cd;
+  --tp-color-text-subtle: #8c97b1;
+  --tp-color-text-inverse: #070d1f;
+  --tp-color-focus-ring: #60a5fa;
+  --tp-color-overlay: rgb(2 6 18 / 0.6);
+  --tp-gradient-page:
+    radial-gradient(60rem 40rem at -10% -10%, rgb(37 99 235 / 0.35), transparent 60%),
+    radial-gradient(50rem 36rem at 110% 0%, rgb(124 58 237 / 0.28), transparent 60%),
+    radial-gradient(56rem 40rem at 100% 110%, rgb(8 145 178 / 0.28), transparent 60%),
+    radial-gradient(40rem 30rem at 0% 100%, rgb(30 64 175 / 0.3), transparent 60%),
+    linear-gradient(160deg, #070d1f 0%, #0a1430 50%, #0b1228 100%);
+  --tp-gradient-primary: linear-gradient(135deg, #7db4fb 0%, #60a5fa 50%, #4a90f2 100%);
+  --tp-glass-bg: rgb(17 26 51 / 0.55);
+  --tp-glass-bg-strong: rgb(17 26 51 / 0.92);
+  --tp-glass-bg-subtle: rgb(255 255 255 / 0.04);
+  --tp-glass-border: rgb(255 255 255 / 0.09);
+  --tp-glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --tp-glass-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 36px -18px rgb(0 0 0 / 0.7), 0 2px 8px -4px rgb(0 0 0 / 0.4);
+  --tp-glass-shadow-hover: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 22px 44px -18px rgb(0 0 0 / 0.8), 0 4px 12px -6px rgb(0 0 0 / 0.5);
+  --tp-color-category-fitness: #fb923c;
+  --tp-color-category-mindfulness: #a78bfa;
+  --tp-color-category-nutrition: #4ade80;
+  --tp-color-category-sleep: #60a5fa;
+  --tp-color-category-hydration: #22d3ee;
+  --tp-color-category-learning: #facc15;
+  --tp-chart-1: #60a5fa;
+  --tp-chart-2: #22d3ee;
+  --tp-chart-3: #fb923c;
+  --tp-chart-4: #4ade80;
+  --tp-chart-5: #a78bfa;
+  --tp-chart-6: #facc15;
+  --tp-chart-grid: rgb(148 163 194 / 0.14);
+  --tp-chart-axis: #8c97b1;
+  --tp-chart-gap: #56607a;
+  --tp-shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --tp-shadow-md: 0 8px 20px -10px rgb(0 0 0 / 0.6);
+  --tp-shadow-lg: 0 24px 48px -20px rgb(0 0 0 / 0.7);
+  --tp-shadow-primary: 0 8px 18px -8px rgb(59 130 246 / 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --tp-duration-fast: 0ms;
+    --tp-duration-normal: 0ms;
+    --tp-duration-slow: 0ms;
+  }
+}
+
+/* Browsers without backdrop-filter get near-solid panels so text stays readable. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --tp-glass-bg: rgb(255 255 255 / 0.92);
+    --tp-glass-bg-subtle: rgb(255 255 255 / 0.8);
+  }
+
+  :root[data-theme='dark'] {
+    --tp-glass-bg: rgb(17 26 51 / 0.94);
+    --tp-glass-bg-subtle: rgb(25 35 63 / 0.9);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --tp-glass-bg: rgb(17 26 51 / 0.94);
+      --tp-glass-bg-subtle: rgb(25 35 63 / 0.9);
+    }
+  }
+}

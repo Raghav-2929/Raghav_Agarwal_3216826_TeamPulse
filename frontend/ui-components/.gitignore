@@ -1,0 +1,7 @@
+dist/
+www/
+loader/
+node_modules/
+*.log
+.stencil/
+coverage/

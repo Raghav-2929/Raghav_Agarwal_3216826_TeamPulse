@@ -1,0 +1,96 @@
+:host {
+  display: block;
+  font-family: var(--tp-font-family-sans);
+  color: var(--tp-color-text);
+}
+
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--tp-space-2);
+  margin: 0;
+  padding: var(--tp-space-4) var(--tp-space-3);
+  block-size: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  background:
+    radial-gradient(8rem 6rem at 50% 0%, color-mix(in srgb, var(--tp-color-gold) 14%, transparent), transparent 70%),
+    var(--tp-glass-bg-strong);
+  border: 1px solid var(--tp-glass-border);
+  border-radius: var(--tp-radius-lg);
+  box-shadow: var(--tp-shadow-sm);
+}
+
+.badge.locked {
+  background: var(--tp-glass-bg-subtle);
+  box-shadow: none;
+}
+
+.badge.compact {
+  flex-direction: row;
+  padding: var(--tp-space-2) var(--tp-space-3);
+  text-align: start;
+}
+
+.medal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 3.5rem;
+  block-size: 3.5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, var(--tp-color-warning-soft), color-mix(in srgb, var(--tp-color-gold) 35%, var(--tp-color-surface)));
+  box-shadow:
+    inset 0 0 0 3px color-mix(in srgb, var(--tp-color-gold) 70%, transparent),
+    0 6px 14px -6px color-mix(in srgb, var(--tp-color-gold) 70%, transparent);
+  font-size: 1.6rem;
+}
+
+.compact .medal {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  font-size: 1.1rem;
+}
+
+.locked .medal {
+  background: var(--tp-color-surface-muted);
+  box-shadow: inset 0 0 0 2px var(--tp-color-border-strong);
+}
+
+.locked .icon {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.lock {
+  position: absolute;
+  inset-block-end: -4px;
+  inset-inline-end: -4px;
+  font-size: 0.9rem;
+}
+
+figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.name {
+  font-weight: var(--tp-font-weight-semibold);
+  font-size: var(--tp-font-size-sm);
+}
+
+.description {
+  font-size: var(--tp-font-size-xs);
+  color: var(--tp-color-text-muted);
+}
+
+.meta {
+  font-size: var(--tp-font-size-xs);
+  color: var(--tp-color-text-subtle);
+}
+
+.locked .name {
+  color: var(--tp-color-text-muted);
+}

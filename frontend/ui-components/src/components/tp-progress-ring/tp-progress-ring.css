@@ -1,0 +1,42 @@
+:host {
+  display: inline-block;
+  inline-size: var(--tp-ring-size, 120px);
+  block-size: var(--tp-ring-size, 120px);
+  font-family: var(--tp-font-family-sans);
+  color: var(--tp-color-text);
+}
+
+.ring {
+  position: relative;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+svg {
+  display: block;
+}
+
+.track {
+  stroke: color-mix(in srgb, var(--tp-color-text-subtle) 16%, transparent);
+}
+
+.indicator {
+  transition: stroke-dashoffset var(--tp-duration-slow) var(--tp-easing-standard);
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 18%;
+  line-height: var(--tp-line-height-tight);
+}
+
+.pct {
+  font-size: calc(var(--tp-ring-size, 120px) * 0.2);
+  font-weight: var(--tp-font-weight-bold);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}

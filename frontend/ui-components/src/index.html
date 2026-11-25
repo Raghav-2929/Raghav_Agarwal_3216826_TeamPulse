@@ -1,0 +1,99 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TeamPulse UI components — playground</title>
+    <link rel="stylesheet" href="/build/tokens.css" />
+    <script type="module" src="/build/teampulse.esm.js"></script>
+    <script nomodule src="/build/teampulse.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 2rem;
+        background: var(--tp-color-bg);
+        color: var(--tp-color-text);
+        font-family: var(--tp-font-family-sans);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+        margin-block: 1rem 2rem;
+      }
+      section {
+        max-width: 960px;
+        margin-inline: auto;
+      }
+      pre {
+        font-size: 12px;
+        background: var(--tp-color-surface-muted);
+        padding: 0.75rem;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>TeamPulse UI components</h1>
+
+      <h2>tp-stat-tile</h2>
+      <div class="grid">
+        <tp-stat-tile label="Completions" value="42" delta="12" hint="last 30 days"></tp-stat-tile>
+        <tp-stat-tile label="Suppressed days" value="3" delta="-2" invert-delta></tp-stat-tile>
+        <tp-stat-tile label="Consistency" value="67%" delta="+5%"></tp-stat-tile>
+      </div>
+
+      <h2>tp-progress-ring</h2>
+      <div class="grid">
+        <tp-progress-ring value="3" max="5" label="Habits completed today"></tp-progress-ring>
+        <tp-progress-ring value="14" max="20" tone="fitness" size="96" stroke-width="8" label="Challenge progress">
+          <strong>14/20</strong>
+        </tp-progress-ring>
+      </div>
+
+      <h2>tp-progress-card</h2>
+      <div class="grid">
+        <tp-progress-card heading="Morning run" category="fitness" value="0" target="1" unit="today" streak="5" action-label="Mark complete"></tp-progress-card>
+        <tp-progress-card heading="Meditate" category="mindfulness" value="1" target="1" streak="12" completed action-label="Mark complete"></tp-progress-card>
+      </div>
+
+      <h2>tp-leaderboard-table</h2>
+      <tp-leaderboard-table
+        id="lb"
+        entries='[{"rank":1,"display_name":"Alice Johnson","team_name":"Engineering","score":12,"goal_reached":true},{"rank":2,"display_name":"Ben Carter","team_name":"Engineering","score":9,"is_me":true},{"rank":3,"display_name":"Anonymous participant","team_name":"Marketing","score":7},{"rank":4,"display_name":"Grace Lee","team_name":"Marketing","score":3}]'
+      >
+        <strong slot="caption">November Step-Up</strong>
+      </tp-leaderboard-table>
+      <pre id="lb-log">Select a row…</pre>
+
+      <h2>tp-trend-chart</h2>
+      <tp-trend-chart
+        id="chart"
+        label="Team completions"
+        gap-label="Suppressed (fewer than 3 members)"
+        series='[{"label":"Completions","points":[{"x":"2026-11-01","y":9},{"x":"2026-11-02","y":null},{"x":"2026-11-03","y":7},{"x":"2026-11-04","y":11},{"x":"2026-11-05","y":6},{"x":"2026-11-06","y":null},{"x":"2026-11-07","y":10}]},{"label":"Active members","points":[{"x":"2026-11-01","y":4},{"x":"2026-11-02","y":null},{"x":"2026-11-03","y":3},{"x":"2026-11-04","y":5},{"x":"2026-11-05","y":3},{"x":"2026-11-06","y":null},{"x":"2026-11-07","y":4}]}]'
+      ></tp-trend-chart>
+      <tp-trend-chart
+        type="bar"
+        label="Completions per day"
+        series='[{"label":"Completions","points":[{"x":"2026-11-01","y":2},{"x":"2026-11-02","y":3},{"x":"2026-11-03","y":0},{"x":"2026-11-04","y":4}]}]'
+      ></tp-trend-chart>
+      <pre id="chart-log">Select a point…</pre>
+
+      <h2>tp-badge</h2>
+      <div class="grid">
+        <tp-badge icon="🔥" name="Week Warrior" description="7-day streak" awarded-at="2026-11-08T07:31:02Z"></tp-badge>
+        <tp-badge icon="🏆" name="Century" description="100 completions" locked></tp-badge>
+      </div>
+    </section>
+    <script>
+      document.getElementById('lb').addEventListener('tp-row-select', (e) => {
+        document.getElementById('lb-log').textContent = JSON.stringify(e.detail, null, 2);
+      });
+      document.getElementById('chart').addEventListener('tp-point-select', (e) => {
+        document.getElementById('chart-log').textContent = JSON.stringify(e.detail, null, 2);
+      });
+    </script>
+  </body>
+</html>

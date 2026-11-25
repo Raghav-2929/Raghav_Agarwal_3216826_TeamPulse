@@ -1,0 +1,15 @@
+# Build context for frontend/web/Dockerfile is ./frontend
+**/node_modules
+**/.svelte-kit
+**/.stencil
+**/build
+**/dist
+**/loader
+**/www
+**/coverage
+**/.env
+**/.env.*
+!**/.env.example
+**/*.log
+**/.DS_Store
+**/vite.config.ts.timestamp-*
