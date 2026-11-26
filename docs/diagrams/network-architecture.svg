@@ -63,8 +63,8 @@
 <text x="670" y="179" font-size="12" font-weight="bold" fill="#232F3E">Application Load Balancer · teampulse-alb</text>
 <text x="670" y="193.0" font-size="10" fill="#545B64">HTTP:80 · forwards only with the CloudFront secret header · alb-sg</text>
 <rect x="662" y="230" width="200" height="54" rx="6" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.5"/>
-<text x="670" y="247" font-size="12" font-weight="bold" fill="#232F3E">NAT gateway</text>
-<text x="670" y="261.0" font-size="10" fill="#545B64">outbound only · teampulse-nat-a</text>
+<text x="670" y="247" font-size="12" font-weight="bold" fill="#232F3E">NAT instance</text>
+<text x="670" y="261.0" font-size="10" fill="#545B64">t4g.micro · outbound only</text>
 <rect x="677" y="372" width="440" height="46" rx="6" fill="#FFFFFF" stroke="#ED7100" stroke-width="1.5"/>
 <text x="685" y="389" font-size="12" font-weight="bold" fill="#232F3E">gateway</text>
 <text x="685" y="403.0" font-size="10" fill="#545B64">JWT check · routing · rate limit · gateway-sg + services-sg</text>
@@ -132,7 +132,7 @@
 <text x="512" y="279.9" font-size="9.5" font-weight="normal" fill="#545B64">route → internet gw</text>
 <text x="512" y="292.2" font-size="9.5" font-weight="normal" fill="#545B64">NACL: 80/443 in</text>
 <text x="512" y="339.5" font-size="9.5" font-weight="bold" fill="#232F3E">App tier</text>
-<text x="512" y="351.9" font-size="9.5" font-weight="normal" fill="#545B64">route → NAT gateway</text>
+<text x="512" y="351.9" font-size="9.5" font-weight="normal" fill="#545B64">route → NAT instance</text>
 <text x="512" y="364.2" font-size="9.5" font-weight="normal" fill="#545B64">+ S3 / DynamoDB</text>
 <text x="512" y="376.6" font-size="9.5" font-weight="normal" fill="#545B64">endpoints</text>
 <text x="512" y="684.5" font-size="9.5" font-weight="bold" fill="#232F3E">Data tier</text>
@@ -143,7 +143,7 @@
 <text x="922" y="741.9" font-size="9.5" font-weight="normal" fill="#545B64">(Single-AZ for the demo)</text>
 <text x="1270" y="794.5" font-size="9.5" font-weight="normal" fill="#545B64">ECR, Secrets Manager, EventBridge,</text>
 <text x="1270" y="806.9" font-size="9.5" font-weight="normal" fill="#545B64">SQS and CloudWatch are reached</text>
-<text x="1270" y="819.2" font-size="9.5" font-weight="normal" fill="#545B64">through the NAT gateway</text>
+<text x="1270" y="819.2" font-size="9.5" font-weight="normal" fill="#545B64">through the NAT instance</text>
 <rect x="156" y="414" width="30.6" height="14.3" fill="#FFFFFF" opacity="0.92"/>
 <text x="158" y="422.5" font-size="9.5" font-weight="normal" fill="#232F3E">HTTPS</text>
 <rect x="270" y="557" width="99.8" height="14.3" fill="#FFFFFF" opacity="0.92"/>

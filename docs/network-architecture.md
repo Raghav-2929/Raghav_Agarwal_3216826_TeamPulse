@@ -17,14 +17,15 @@ in https://app.diagrams.net or the draw.io app (*File → Export as → PNG* for
 6. Services publish events to **EventBridge**. Rules send them to **SQS** queues (one per consuming
    service) or straight to the **Lambda**, which writes to **DynamoDB** through a free gateway endpoint.
 7. Tasks have no public IP. They reach AWS APIs (ECR, Secrets Manager, CloudWatch, EventBridge, SQS)
-   through the **NAT gateway**, outbound only.
+   through a **NAT instance**, outbound only: a small EC2 server (`t4g.micro`) that forwards their
+   traffic. It does the same job as a NAT gateway for about a quarter of the cost.
 
 ## Subnets (VPC `10.20.0.0/16`, two Availability Zones)
 
 | Tier | Zone a | Zone b | What runs there | Route to the internet |
 |---|---|---|---|---|
-| Public | 10.20.0.0/24 | 10.20.1.0/24 | ALB, NAT gateway | internet gateway |
-| Private app | 10.20.10.0/24 | 10.20.11.0/24 | 7 ECS services, Lambda | NAT gateway (outbound only) + S3/DynamoDB gateway endpoints |
+| Public | 10.20.0.0/24 | 10.20.1.0/24 | ALB, NAT instance | internet gateway |
+| Private app | 10.20.10.0/24 | 10.20.11.0/24 | 7 ECS services, Lambda | NAT instance (outbound only) + S3/DynamoDB gateway endpoints |
 | Private data | 10.20.20.0/24 | 10.20.21.0/24 | RDS PostgreSQL | none |
 
 ## Security groups (stateful, per resource)
@@ -36,6 +37,7 @@ in https://app.diagrams.net or the draw.io app (*File → Export as → PNG* for
 | `teampulse-services-sg` | 8000 from `gateway-sg` and from itself | all services (gateway too, so it can call them) |
 | `teampulse-rds-sg` | 5432 from `services-sg` | RDS |
 | `teampulse-lambda-sg` | nothing | Lambda (outbound calls only) |
+| `teampulse-nat-sg` | all traffic from inside the VPC (`10.20.0.0/16`), nothing from the internet | NAT instance |
 
 ## Network ACLs (stateless, per subnet)
 
@@ -52,7 +54,7 @@ subnets still accept nothing but PostgreSQL traffic from the app subnets.
 
 | Production choice | Demo deployment | Why it is acceptable |
 |---|---|---|
-| One NAT gateway per zone | One NAT gateway | If that zone fails, private tasks lose outbound access |
+| One managed NAT gateway per zone | One NAT instance (`t4g.micro`, no SSH) | Much cheaper; if it stops, private tasks lose outbound access until it is started again |
 | Interface endpoints for ECR, logs, Secrets Manager… | Only the free S3 and DynamoDB gateway endpoints | Other AWS API calls go through the NAT |
 | HTTPS between CloudFront and the ALB (ACM certificate) | HTTP, locked by the secret header | Needs a custom domain; the browser → CloudFront hop is HTTPS |
 | RDS Multi-AZ | Single-AZ (the subnet group already spans both zones) | No standby for demo data |

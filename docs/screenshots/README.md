@@ -12,7 +12,7 @@ secret header value and any secret values.
 | `02-iam-roles.png` | IAM → Roles (search `teampulse`) | execution, task and Lambda roles |
 | `03-secrets-manager.png` | Secrets Manager → Secrets | JWT key and the database passwords |
 | `04-vpc-subnets.png` | VPC → Subnets | 6 subnets, CIDRs, two zones |
-| `05-route-tables.png` | VPC → Route tables → `teampulse-app-rt` → Routes | `0.0.0.0/0 → NAT`, the two endpoints |
+| `05-route-tables.png` | VPC → Route tables → `teampulse-app-rt` → Routes | `0.0.0.0/0 →` the NAT instance, the two endpoints |
 | `06-security-groups.png` | VPC → Security groups → `teampulse-rds-sg` → Inbound | 5432 from `teampulse-services-sg` only |
 | `07-network-acls.png` | VPC → Network ACLs → `teampulse-data-nacl` → Inbound | 5432 from the app subnets only |
 | `08-vpc-endpoints.png` | VPC → Endpoints | S3 and DynamoDB gateway endpoints |

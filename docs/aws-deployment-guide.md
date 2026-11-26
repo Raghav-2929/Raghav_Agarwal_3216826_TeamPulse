@@ -233,6 +233,24 @@ Create three NACLs, associate them with the matching subnets, and replace the de
 
 **Option A — keep the NAT gateway (simplest, recommended for the demo).** Nothing else needed.
 
+**Option C — NAT instance instead of a NAT gateway (cheapest; used by the live demo).** Skip the NAT
+gateway in step 2.4. Create security group `teampulse-nat-sg` (all traffic from `10.20.0.0/16`), then
+launch a `t4g.micro` Amazon Linux 2023 instance `teampulse-nat-a` in `teampulse-public-a` with a public
+IP, that security group, no key pair, and this user data:
+
+```bash
+#!/bin/bash
+dnf install -y iptables-services && systemctl enable --now iptables
+echo 'net.ipv4.ip_forward = 1' > /etc/sysctl.d/90-nat.conf && sysctl --system
+IFACE=$(ip -o -4 route show to default | awk '{print $5}' | head -1)
+iptables -t nat -A POSTROUTING -o "$IFACE" -s 10.20.0.0/16 -j MASQUERADE
+iptables -F FORWARD && service iptables save
+```
+
+Then *Actions → Networking → Change source/destination check → Stop*, and point the
+`teampulse-app-rt` route `0.0.0.0/0` at the instance. Create the network ACLs first (step 3): the
+instance needs reply traffic allowed when it installs packages at first boot.
+
 **Option B — no NAT, fully private (more secure, ~US$7/endpoint/AZ/month).** Delete the NAT route and
 create *interface* endpoints in `teampulse-app-a/b` with security group `teampulse-endpoints-sg` and
 *Private DNS* enabled for: `ecr.api`, `ecr.dkr`, `logs`, `secretsmanager`, `events`, `sqs`, `sts`,

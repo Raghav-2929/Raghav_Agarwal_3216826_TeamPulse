@@ -44,8 +44,10 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
 ## 2. Network
 
 - VPC `teampulse-vpc` `10.20.0.0/16` with public, private-app and private-data subnets in two zones.
-- Route tables: public → internet gateway; app → NAT gateway + S3/DynamoDB gateway endpoints; data →
+- Route tables: public → internet gateway; app → NAT instance + S3/DynamoDB gateway endpoints; data →
   no internet route.
+- NAT instance `teampulse-nat-a` (`t4g.micro`, Amazon Linux, no SSH, source/destination check off)
+  instead of a NAT gateway, to keep the cost low.
 - Security groups chain the tiers: internet → `alb-sg` → `gateway-sg` → `services-sg` → `rds-sg`.
   NACLs repeat the rules at subnet level.
 
@@ -118,6 +120,9 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
 - Dashboard `TeamPulse`; 10 alarms (API latency, 5xx errors, login failures, queue depth, stuck
   queue, 4 dead-letter queues, Lambda errors) e-mail through SNS `teampulse-alerts`.
 - An EventBridge rule e-mails when an ECS task stops (service restarts).
+- To save credits, Container Insights and the services' own latency metrics (EMF) are off, so the
+  dashboard's "ECS running tasks" and "Service latency" widgets stay empty. The free ALB, SQS, Lambda
+  and RDS metrics fill the rest.
 
 ![CloudWatch dashboard](screenshots/23-cloudwatch-dashboard.png)
 ![CloudWatch alarms](screenshots/24-cloudwatch-alarms.png)
