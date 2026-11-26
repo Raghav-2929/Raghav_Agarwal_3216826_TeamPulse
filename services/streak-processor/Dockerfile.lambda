@@ -10,8 +10,10 @@ WORKDIR /build
 COPY pyproject.toml uv.lock ./
 COPY libs ./libs
 COPY services ./services
+# --no-sources: install ./libs/common as a real copy. Without it, the workspace source makes uv link
+# it as an editable path that only exists in this build stage, so the Lambda could not import it.
 RUN uv export --frozen --no-dev --no-editable --no-hashes --package teampulse-streak-processor -o requirements.txt \
- && uv pip install --python /var/lang/bin/python3.13 --target /opt/package -r requirements.txt
+ && uv pip install --no-sources --python /var/lang/bin/python3.13 --target /opt/package -r requirements.txt
 
 FROM public.ecr.aws/lambda/python:3.13
 LABEL org.opencontainers.image.title="teampulse-streak-processor-lambda"
