@@ -2,12 +2,9 @@
 
 | | |
 |---|---|
-| Live app | `https://<cloudfront-domain>` (add yours) |
 | Region | `ap-south-1` (Mumbai), two Availability Zones |
-| How it was built | by hand in the AWS console, following [aws-deployment-guide.md](aws-deployment-guide.md) with demo-size settings |
+| Built from | [aws-deployment-guide.md](aws-deployment-guide.md), with demo-size settings |
 | Network diagram | [network-architecture.md](network-architecture.md) |
-
-Screenshots live in [screenshots/](screenshots); the file names below are the ones to use.
 
 ## Case-study requirements → what is deployed
 
@@ -38,7 +35,8 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
   never in images or code.
 
 ![IAM groups](screenshots/01-iam-groups.png)
-![IAM roles](screenshots/02-iam-roles.png)
+![IAM roles](screenshots/02-iam-roles-top.png)
+![IAM roles (continued)](screenshots/02-iam-roles.png)
 ![Secrets Manager](screenshots/03-secrets-manager.png)
 
 ## 2. Network
@@ -51,6 +49,7 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
 - Security groups chain the tiers: internet → `alb-sg` → `gateway-sg` → `services-sg` → `rds-sg`.
   NACLs repeat the rules at subnet level.
 
+![VPC resource map](screenshots/04-vpc-resource-map.png)
 ![Subnets](screenshots/04-vpc-subnets.png)
 ![Route tables](screenshots/05-route-tables.png)
 ![Security groups](screenshots/06-security-groups.png)
@@ -73,6 +72,7 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
 - Tag immutability on, scan on push on, keep the last 3 images.
 
 ![ECR repositories](screenshots/11-ecr.png)
+![ECR repositories (continued)](screenshots/11-ecr-more.png)
 
 ## 5. Compute (ECS, ALB, Lambda)
 
@@ -88,7 +88,8 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
 
 ![ECS services](screenshots/12-ecs-services.png)
 ![ECS auto scaling](screenshots/13-ecs-autoscaling.png)
-![Task definition](screenshots/14-task-definition.png)
+![Task definition: environment variables](screenshots/14-task-definition-env.png)
+![Task definition: secrets, non-root user, read-only file system](screenshots/14-task-definition.png)
 ![ALB listener rules](screenshots/15-alb-listener-rules.png)
 ![Target group health](screenshots/16-target-group.png)
 ![Lambda](screenshots/17-lambda.png)
@@ -125,7 +126,10 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
   and RDS metrics fill the rest.
 
 ![CloudWatch dashboard](screenshots/23-cloudwatch-dashboard.png)
+![CloudWatch dashboard (continued)](screenshots/23-cloudwatch-dashboard-lower.png)
 ![CloudWatch alarms](screenshots/24-cloudwatch-alarms.png)
+![ECS task-stopped rule](screenshots/18-eventbridge-task-stopped-rule.png)
+![Log groups](screenshots/25-log-groups.png)
 ![One request across all services](screenshots/25-logs-insights.png)
 
 ## 9. The running application
@@ -133,3 +137,4 @@ Screenshots live in [screenshots/](screenshots); the file names below are the on
 ![Login page](screenshots/26-app-login.png)
 ![Employee dashboard](screenshots/27-app-dashboard.png)
 ![Manager's aggregated team view](screenshots/28-app-team-insights.png)
+![Team members and activity types](screenshots/28-app-team-insights-members.png)
