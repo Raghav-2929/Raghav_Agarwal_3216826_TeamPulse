@@ -6,8 +6,8 @@ few CLI commands for building/pushing images). Every copy-paste artefact referen
 earlier.
 
 > **Cost warning.** NAT Gateway, ALB, Fargate tasks and interface VPC endpoints are **not** free tier.
-> A full dev stack costs roughly **US$4 per day** (≈ $120/month). Record your demo, then do the
-> [clean-up](#16-clean-up-avoid-charges) the same day. Set a budget alert in step 1.
+> A full dev stack costs roughly **US$4 per day** (≈ $120/month). Do the
+> [clean-up](#16-clean-up-avoid-charges) when you no longer need it. Set a budget alert in step 1.
 
 ## Contents
 0. [Architecture & naming](#0-architecture--naming)
