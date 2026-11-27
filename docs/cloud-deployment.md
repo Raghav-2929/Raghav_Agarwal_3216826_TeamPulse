@@ -112,7 +112,6 @@
 - CloudFront: HTTPS for viewers, security headers, SPA rewrite function; `/api/*` and
   `/.well-known/*` go to the ALB with caching off.
 
-![S3 bucket](screenshots/21-s3-bucket.png)
 ![CloudFront behaviours](screenshots/22-cloudfront.png)
 
 ## 8. Monitoring (CloudWatch)
@@ -130,7 +129,6 @@
 ![CloudWatch alarms](screenshots/24-cloudwatch-alarms.png)
 ![ECS task-stopped rule](screenshots/18-eventbridge-task-stopped-rule.png)
 ![Log groups](screenshots/25-log-groups.png)
-![One request across all services](screenshots/25-logs-insights.png)
 
 ## 9. The running application
 
